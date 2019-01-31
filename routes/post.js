@@ -82,6 +82,13 @@ router.post('/login', (req, res) => {
         }
     })
         .then(data => {
+            
+    req.session.user = {
+        id: data.id,
+        username: data.username
+    }
+    // res.send('login')
+
             // console.log(typeof data)
             // res.send(data)
             if (data !== undefined && data !== null) {
@@ -133,6 +140,7 @@ router.get('/', (req,res)=>{
         order: [['id','DESC']]
     })
             .then(data=>{
+                
                 Model.User.findAll({
                     include: {
                         model: Model.Post
@@ -141,8 +149,17 @@ router.get('/', (req,res)=>{
                 .then(datas=>{
                     // res.send(datas)
                 // res.send(data)
-                res.render('list', {data , datas})
-                })
+                return Model.Comment.findAll({
+                    include: {
+                        model: Model.User
+                    }
+                }).then(datacomment=>{
+                    // res.send(datacomment)
+                    // res.send(data)
+                res.render('list', {data , datas, datacomment})
+
+                }).catch(err=> res.send(err))
+                }).catch(err=> res.send(err))
                 
             })
             .catch(err=>{
@@ -153,20 +170,45 @@ router.get('/', (req,res)=>{
 
 router.post('/' , (req,res)=>{
     // res.send('post')
+
+    let objcomment = {
+        comment: req.body.comment,
+        UserId: req.session.user.id,
+        PostId: req.body.postid
+    }
     let obj = {
         content: req.body.content,
-        like: 1,
-        UserId: 1
+        like: 0,
+        UserId: req.session.user.id
     }
-    // res.render('posting')
-    Model.Post.create(obj)
-    .then(data=>{
-        res.redirect('/expressr')
-    })
-    .catch(err=>{
-        res.send(err)
-    })
+    // res.send([obj,objcomment])
+    // res.send(objcomment)
+    if (objcomment.comment) {
+        Model.Comment.create(objcomment)
+        .then(comment=>{
+            // res.send(comment)
+            res.redirect('/expressr/')
+        })
+        // res.render('posting')z
+        .catch(err=>{
+            res.send(err)
+        }) 
+    } else if (obj.content) {
+       return Model.Post.create(obj)
+        .then(data=>{
+             
+             res.redirect('/expressr')
+            })
+            .catch(err=>{
+                res.send(err)
+            })
+    }
+        
+
 })
+
+
+
 
 module.exports = router
 

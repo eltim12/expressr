@@ -20,13 +20,13 @@ app.get('/getSession', (req,res)=>{
     res.send(req.session)
 })
 
-app.get('/setSession', (req,res)=>{
-    req.session.user = {
-        id: 1,
-        username: 'ilham'
-    }
-    res.send('login')
-})
+// app.get('/setSession', (req,res)=>{
+//     req.session.user = {
+//         id: 1,
+//         username: 'ilham'
+//     }
+//     res.send('login')
+// })
 
 app.get('/logout', (req,res)=>{
     req.session.destroy()

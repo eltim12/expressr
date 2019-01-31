@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
     <style>
-        html, body {
+        html,
+        body {
             margin: 0 auto;
             padding: 0 auto;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: whitesmoke ;
+            background-color: whitesmoke;
             color: black
         }
+
         header {
             border: 1px solid rgba(116, 1, 74, 0.97);
             background-color: rgba(116, 1, 74, 0.97);
@@ -36,12 +39,13 @@
             font-size: 20px;
             font-weight: bold;
         }
+
         main {
             /* border: 1px solid red; */
             width: 600px;
             height: auto;
             margin: 0 auto;
-            background-color: hsl(329, 79%, 28%) ;
+            background-color: hsl(329, 79%, 28%);
             color: black;
             z-index: 1;
         }
@@ -49,7 +53,7 @@
         footer {
             border: 1px solid rgba(116, 1, 74, 0.97);
             height: 50px;
-            background-color: rgba(116, 1, 74, 0.97) ;
+            background-color: rgba(116, 1, 74, 0.97);
         }
 
         footer p {
@@ -76,13 +80,14 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <ul>
 
             <a href="/expressr/login"><li>Login</li></a>
-            <a href="/"><li>Home</li></a> 
-            <a href="/profile"><li>Profile</li></a> 
+            <a href="/"><li>Home</li></a>
+            <a href="/profile"><li>Profile</li></a>
             <a href="/expressr/post"><li>Post</li></a>
 
         </ul>
@@ -92,42 +97,47 @@
 
         <div class="post">
             <form action="" method="POST">
-                <textarea style="position: relative; left: 80px ;" fixed name="content" cols="60" rows="3"></textarea>
+                <textarea style="position: relative; left: 80px; resize: none;" fixed name="content" cols="60" rows="3" required></textarea>
                 <button style="position: relative; top: 20px;" type="submit">post</button>
             </form>
         </div>
 
-        
-        
+
+
         <% data.forEach(e=>{ %>
-            <div class="content">
+            <div class="content" name="postid" >  </a>
                 <% datas.forEach(el=>{ %>
 
-                <% if (e.UserId === el.id) { %>
+                    <% if (e.UserId === el.id) { %>
 
-                @<%= el.username %> <br> <br>
+                        @<%= el.username %> <br> <br>
 
-                
-                <%= e.content %>
-                
-                
-                <br>
-                <br>
-                Comments:
-                <input style="height: 40px;" type="text" name="comment" >
-                <button type="submit">enter</button>
-                <% } %>  
-                <% }) %>
-                </div>
-                
+                            <!-- <%= e.createdAt %> <br> -->
+                                <%= e.content %>
+                                    <br>
+                                    <br> Comments:
+                                    <% datacomment.forEach(ep=>{ %>
+                                        <% if (ep.PostId === e.id) { %>
+                                            <%= ep.User.username + ':' + ep.comment %> <br>
+                                                <% } %>
+                                                    <% }) %>
+                                                
+                                                        <form action="" method="POST">
+                                                          <input type="text" name="postid" value="<%= e.id %>" hidden>
+                                                          <input style="height: 20px; width: 300px;" type="text" name="comment" required > </a>
+                                                            <button type="submit">enter</button>
+                                                        </form>
+                                                        <form action="" method="POST">
+                                                            <button type="like" name="like">like</button>
+                                                        </form>
+                                                    <% } %>
+                                                <% }) %>
+            </div>
+       
             <% }) %>
-
-            
     </main>
-
     <footer>
         <p>copyright 2019</p>
     </footer>
-    
 </body>
 </html>
