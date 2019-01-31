@@ -39,7 +39,7 @@
         main {
             /* border: 1px solid red; */
             width: 600px;
-            height: 750px;
+            height: auto;
             margin: 0 auto;
             background-color: hsl(329, 79%, 28%) ;
             color: black;
@@ -79,14 +79,12 @@
 <body>
     <header>
         <ul>
-<<<<<<< HEAD
+
             <a href="/expressr/login"><li>Login</li></a>
             <a href="/"><li>Home</li></a> 
             <a href="/profile"><li>Profile</li></a> 
-            <!-- <a href="/expressr/post"><li>Post</li></a> -->
-=======
-            <li><a href='/expressr/login'><span>expressr</span></a></li>
->>>>>>> 60914261c72b372f9bfc87c3355700738a0d1677
+            <a href="/expressr/post"><li>Post</li></a>
+
         </ul>
     </header>
 
@@ -103,9 +101,14 @@
         
         <% data.forEach(e=>{ %>
             <div class="content">
-                @<%= e.username %> <br> <br>
+                <% datas.forEach(el=>{ %>
+
+                <% if (e.UserId === el.id) { %>
+
+                @<%= el.username %> <br> <br>
+
                 
-                <%= e.Posts[0].content %>
+                <%= e.content %>
                 
                 
                 <br>
@@ -113,16 +116,8 @@
                 Comments:
                 <input style="height: 40px;" type="text" name="comment" >
                 <button type="submit">enter</button>
-                <% datas.forEach(el=>{ %>
-                    <br>
-                    
-                   <% if (e.id === el.id) { %>
-                    <%= e.username + ' : ' + el.Comments[0].comment %> <br> <br>
-
-
-                  <% } %>
-                  <% }) %>
-                    
+                <% } %>  
+                <% }) %>
                 </div>
                 
             <% }) %>
