@@ -24,6 +24,12 @@ module.exports = {
      UserId: 2,
      createdAt: new Date(),
      updatedAt: new Date()
+   },{
+     content: 'Success is not accident',
+     like: 1 ,
+     UserId: 1,
+     createdAt: new Date(),
+     updatedAt: new Date()
    }])
   },
 
