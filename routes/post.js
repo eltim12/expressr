@@ -35,6 +35,40 @@ router.post("/register", (req, res) => {
         })
 })
 
+router.get("/editAccount", (req, res) => {
+    Model.User.findByPk(1)
+        .then(data => {
+            // res.send(data)
+            res.render("editAccount", { data })
+        })
+        .catch(err => {
+            res.send(err)
+        })
+})
+
+router.post("/editAccount", (req, res) => {
+    // console.log(req.body.firstName)
+    // console.log(req.params.id)
+    
+    Model.User.update({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email
+    },
+        {
+            where: {
+                id: 1
+            }
+        })
+        .then(updated => {
+            res.redirect('/expressr')
+            // res.send(updated)
+        })
+        .catch(err => {
+            res.send(err.errors[0].message)
+        })
+})
+
 
 router.get('/login', (req, res) => {
     res.render('login')
