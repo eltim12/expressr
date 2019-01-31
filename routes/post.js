@@ -94,41 +94,79 @@ router.post('/login', (req, res) => {
             res.send(err)
         })
 })
+     
 
-router.get('/', (req, res) => {
-    Model.User.findAll({
-        order: [['createdAt']],
-        include: {
-            model: Model.Post
-        }
+
+// router.get('/', (req, res) => {
+//     Model.User.findAll({
+//         order: [['createdAt']],
+//         include: {
+//             model: Model.Post
+//         }
+//     })
+//         .then(userpost => {
+//             // res.send(userpost)
+//             Model.User.findAll({
+//                 order: [['createdAt']],
+//                 include: {
+//                     model: Model.Comment,
+//                     include: {
+//                         model: Model.Post
+//                     }
+//                 }
+//             })
+//                 .then(usercomment => {
+//                     // res.send(usercomment)
+//                      res.send(userpost)
+
+//                     // res.render('list', { data: userpost, datas: usercomment })
+//                 })
+//             // res.render('home', {data: userpost})
+//         })
+//         .catch(err => {
+//             res.send(err)
+//         })
+// })
+
+router.get('/', (req,res)=>{
+    Model.Post.findAll({
+        order: [['id','DESC']]
     })
-        .then(userpost => {
-            // res.send(userpost)
-            Model.User.findAll({
-                order: [['createdAt']],
-                include: {
-                    model: Model.Comment,
+            .then(data=>{
+                Model.User.findAll({
                     include: {
                         model: Model.Post
                     }
-                }
-            })
-                .then(usercomment => {
-                    // res.send(usercomment)
-                    //  res.send(userpost)
-
-                    res.render('home', { data: userpost, datas: usercomment })
                 })
-            // res.render('home', {data: userpost})
-        })
-        .catch(err => {
-            res.send(err)
-        })
+                .then(datas=>{
+                    // res.send(datas)
+                // res.send(data)
+                res.render('list', {data , datas})
+                })
+                
+            })
+            .catch(err=>{
+                res.send(err)
+            })
+    // res.render('beranda')
 })
 
-router.get('/post', (req, res) => {
+router.post('/' , (req,res)=>{
     // res.send('post')
-    res.render('posting')
+    let obj = {
+        content: req.body.content,
+        like: 1,
+        UserId: 1
+    }
+    // res.render('posting')
+    Model.Post.create(obj)
+    .then(data=>{
+        res.redirect('/expressr')
+    })
+    .catch(err=>{
+        res.send(err)
+    })
 })
 
 module.exports = router
+

@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Posting</title>
+    <title>Beranda</title>
 </head>
 <body>
 
-    <form action="" method="POST">
-        <label for="content"></label>
-        <input type="text" name="content">
-        <button type="submit">post</button>
-    </form>
-    
+    <table>
+        <% data.forEach(e=>{ %>
+            <tr>
+                <td><%= e.content  %></td> <br>
+            </tr>
+            <% }) %> 
+    </table>
 </body>
 </html>
