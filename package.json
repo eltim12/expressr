@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/eltim12/expressr/issues"
   },
-  "homepage": "https://github.com/eltim12/expressr#readme"
+  "homepage": "https://github.com/eltim12/expressr#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "pg": "^7.8.0",
+    "sequelize": "^4.42.0"
+  }
 }
