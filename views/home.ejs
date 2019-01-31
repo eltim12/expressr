@@ -1,268 +1,134 @@
-<!doctype html>
-<html lang=''>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="script.js"></script>
-    <title>CSS MenuMaker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
     <style>
-        @import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+        html, body {
+            margin: 0 auto;
+            padding: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: whitesmoke ;
+            color: black
+        }
+        header {
+            border: 1px solid rgba(116, 1, 74, 0.97);
+            background-color: rgba(116, 1, 74, 0.97);
+            height: 60px;
+            /* position: fixed; */
 
-        html {
-            background-color: black;
         }
 
-        #cssmenu {
-            /* border: 1px solid red;  */
-            background: white;
-            width: 100%;
-            position:fixed;
-            /* z-index: 1; */
-            bottom: 93%;
-            height: 60px
-        }
-
-        #cssmenu ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            line-height: 1;
-            display: block;
-            zoom: 1;
-        }
-
-        #cssmenu ul:after {
-            content: " ";
-            display: block;
-            font-size: 0;
-            height: 0;
-            clear: both;
-            visibility: hidden;
-        }
-
-        #cssmenu ul li {
+        header ul a li {
             display: inline-block;
-            padding: 0;
-            margin: 0;
+            /* border: 1px solid red; */
+            padding: 8px 15px;
+            position: relative;
+            left: 35%;
+            bottom: 10px;
+            text-decoration: none;
+            color: whitesmoke;
         }
 
-        #cssmenu.align-right ul li {
-            float: right;
+        li {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        main {
+            /* border: 1px solid red; */
+            width: 600px;
+            height: 750px;
+            margin: 0 auto;
+            background-color: hsl(329, 79%, 28%) ;
+            color: black;
+            z-index: 1;
         }
 
-        #cssmenu.align-center ul {
+        footer {
+            border: 1px solid rgba(116, 1, 74, 0.97);
+            height: 50px;
+            background-color: rgba(116, 1, 74, 0.97) ;
+        }
+
+        footer p {
             text-align: center;
         }
 
-        /* SECTION  BUAT TEXT DALEM NAVBAR   */
-        #cssmenu ul li a {
-            color: black;
-            text-decoration: none;
-            display: block;
-            padding: 15px 25px;
-            font-family: 'Open Sans', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 30px;
+        .content {
+            border: 1px solid white;
+            width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: azure;
+            border-radius: 3px;
+            margin-top: 15px;
+        }
+
+        .post input {
+            border: 1px solid azure;
+            width: 400px;
+            height: 100px;
             position: relative;
-            left: 435%;
-            -webkit-transition: color .25s;
-            -moz-transition: color .25s;
-            -ms-transition: color .25s;
-            -o-transition: color .25s;
-            transition: color .25s;
+            left: 100px;
+            border-radius: 10px;
         }
-
-        #cssmenu ul li a:hover {
-            color: #333333;
-        }
-
-        #cssmenu ul li a:hover:before {
-            width: 100%;
-        }
-
-        #cssmenu ul li a:after {
-            content: "";
-            display: block;
-            position: absolute;
-            right: -3px;
-            top: 19px;
-            height: 6px;
-            width: 6px;
-            background: #ffffff;
-            opacity: .5;
-        }
-
-        #cssmenu ul li a:before {
-            content: "";
-            display: block;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 3px;
-            width: 0;
-            background: #333333;
-            -webkit-transition: width .25s;
-            -moz-transition: width .25s;
-            -ms-transition: width .25s;
-            -o-transition: width .25s;
-            transition: width .25s;
-        }
-
-        #cssmenu ul li.last>a:after,
-        #cssmenu ul li:last-child>a:after {
-            display: none;
-        }
-
-        #cssmenu ul li.active a {
-            color: #333333;
-        }
-
-        #cssmenu ul li.active a:before {
-            width: 100%;
-        }
-        
-        #cssmenu.align-right li.last>a:after,
-        #cssmenu.align-right li:last-child>a:after {
-            display: block;
-        }
-
-        #cssmenu.align-right li:first-child a:after {
-            display: none;
-        }
-
-        @media screen and (max-width: 768px) {
-            #cssmenu ul li {
-                float: none;
-                display: block;
-            }
-
-            #cssmenu ul li a {
-                width: 100%;
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                border-bottom: 1px solid white;
-            }
-
-            #cssmenu ul li.last>a,
-            #cssmenu ul li:last-child>a {
-                border: 0;
-            }
-
-            #cssmenu ul li a:after {
-                display: none;
-            }
-
-            #cssmenu ul li a:before {
-                display: none;
-            }
-        }
-
-        @import url("https://use.fontawesome.com/releases/v5.3.1/css/all.css");
-        
-        form{
-    position: fixed;
-    /* top: 100%; */
-    bottom: 90.7%;
-    left: 93%;
-    transform: translate(-50%,-50%);
-    transition: all 1s;
-    width: 50px;
-    height: 50px;
-    background: black;
-    box-sizing: border-box;
-    border-radius: 25px;
-    border: 4px solid white;
-    padding: 5px;
-}
-
-input{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;;
-    height: 42.5px;
-    line-height: 30px;
-    outline: 0;
-    border: 0;
-    display: none;
-    font-size: 1em;
-    border-radius: 20px;
-    padding: 0 20px;
-}
-
-.fa{
-    box-sizing: border-box;
-    padding: 10px;
-    width: 42.5px;
-    height: 42.5px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-radius: 50%;
-    color: white;
-    text-align: center;
-    font-size: 1.2em;
-    transition: all 1s;
-}
-
-form:hover{
-    width: 200px;
-    cursor: pointer;
-}
-
-form:hover input{
-    display: block;
-}
-
-form:hover .fa{
-    background: #07051a;
-    color: white;
-}
-
-
-#content {
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-    width: 700px;
-    height: 1000px;
-    margin: 0 auto;
-}
-
     </style>
-
 </head>
-
-
-
 <body>
-
-    <div id='cssmenu'>
+    <header>
         <ul>
-            <li><a href='./login/login.ejs'><span>expressr</span></a></li>
+            <a href="/expressr/login"><li>Login</li></a>
+            <a href="/"><li>Home</li></a> 
+            <a href="/profile"><li>Profile</li></a> 
+            <!-- <a href="/expressr/post"><li>Post</li></a> -->
         </ul>
-    </div>
+    </header>
 
-    <form action="">
-        <input type="search">
-        <i class="fa fa-search"></i>
-    </form>
+    <main>
 
-    <div id='content'>
+        <div class="post">
+            <form action="" method="POST">
+                <textarea style="position: relative; left: 80px ;" fixed name="content" cols="60" rows="3"></textarea>
+                <button style="position: relative; top: 20px;" type="submit">post</button>
+            </form>
+        </div>
+
+        
+        
+        <% data.forEach(e=>{ %>
+            <div class="content">
+                @<%= e.username %> <br> <br>
+                
+                <%= e.Posts[0].content %>
+                
+                
+                <br>
+                <br>
+                Comments:
+                <input style="height: 40px;" type="text" name="comment" >
+                <button type="submit">enter</button>
+                <% datas.forEach(el=>{ %>
+                    <br>
+                    
+                   <% if (e.id === el.id) { %>
+                    <%= e.username + ' : ' + el.Comments[0].comment %> <br> <br>
 
 
+                  <% } %>
+                  <% }) %>
+                    
+                </div>
+                
+            <% }) %>
 
-    </div>
+            
+    </main>
 
-
-
+    <footer>
+        <p>copyright 2019</p>
+    </footer>
+    
 </body>
-<html>
->>>>>>> 532a24e8c06d36effe9e8f3f34efc87de468d6a0
+</html>

@@ -35,6 +35,8 @@ router.post('/login', (req,res)=>{
         res.send(err)
     })
 })
+     
+
 
 router.get('/', (req,res)=>{
     Model.User.findAll({
@@ -67,9 +69,22 @@ router.get('/', (req,res)=>{
     })
 })
 
-router.get('/post' , (req,res)=>{
+router.post('/' , (req,res)=>{
     // res.send('post')
-    res.render('posting')
+    let obj = {
+        content: req.body.content,
+        like: null,
+        userId: 3
+    }
+    // res.render('posting')
+    Model.Post.create(obj)
+            .then(data=>{
+                res.redirect('/express')
+            })
+            .catch(err=>{
+                res.send(err)
+            })
 })
 
 module.exports = router
+
