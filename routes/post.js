@@ -15,61 +15,90 @@ const Model = require('../models')
 // })
 
 
-router.get('/login', (req,res)=>{
+router.get("/register", (req, res) => {
+            res.render('register')
+})
+
+router.post("/register", (req, res) => {
+    console.log(req.body)
+    Model.User.create({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+    })
+        .then(data => {
+            // res.send(data)
+            res.redirect("login")
+        })
+        .catch(err => {
+            res.send(err.errors[0].message)
+        })
+})
+
+
+router.get('/login', (req, res) => {
     res.render('login')
 })
 
-router.post('/login', (req,res)=>{
+router.post('/login', (req, res) => {
     Model.User.findOne({
+        where: {
             username: req.body.username,
             password: req.body.password
-    })
-    .then(data=>{
-        // console.log(typeof data)
-        // res.send(data)
-        if (data !== undefined) {
-            res.redirect('/expressr')
         }
     })
-    .catch(err=>{
-        res.send(err)
-    })
+        .then(data => {
+            // console.log(typeof data)
+            // res.send(data)
+            if (data !== undefined && data !== null) {
+                res.redirect('/expressr')
+            } else {
+                res.redirect('/expressr/login')
+            }
+        })
+        .catch(err => {
+            res.send(err)
+        })
 })
      
 
 
-router.get('/', (req,res)=>{
+router.get('/', (req, res) => {
     Model.User.findAll({
         order: [['createdAt']],
         include: {
             model: Model.Post
         }
     })
-    .then(userpost=>{
-        // res.send(userpost)
-         Model.User.findAll({
-            order: [['createdAt']],
-            include: {
-                model: Model.Comment,
+        .then(userpost => {
+            // res.send(userpost)
+            Model.User.findAll({
+                order: [['createdAt']],
                 include: {
-                    model: Model.Post
+                    model: Model.Comment,
+                    include: {
+                        model: Model.Post
+                    }
                 }
-            }
-        })
-        .then(usercomment=>{
-            // res.send(usercomment)
-            //  res.send(userpost)
+            })
+                .then(usercomment => {
+                    // res.send(usercomment)
+                    //  res.send(userpost)
 
-            res.render('home', {data: userpost, datas: usercomment})
+                    res.render('home', { data: userpost, datas: usercomment })
+                })
+            // res.render('home', {data: userpost})
         })
-        // res.render('home', {data: userpost})
-    })
-    .catch(err=>{
-        res.send(err)
-    })
+        .catch(err => {
+            res.send(err)
+        })
 })
 
+<<<<<<< HEAD
 router.post('/' , (req,res)=>{
+=======
+router.get('/post', (req, res) => {
+>>>>>>> 60914261c72b372f9bfc87c3355700738a0d1677
     // res.send('post')
     let obj = {
         content: req.body.content,
